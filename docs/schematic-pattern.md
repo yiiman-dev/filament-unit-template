@@ -2,26 +2,19 @@
 
 ## Overview
 
-The Schematic pattern is a custom implementation that provides a structured approach to defining Filament 3 form and table schemas. This pattern allows for better code organization, reusability, and maintainability by separating schema definitions from resource classes.
+The Schematic pattern is a custom implementation that provides a structured approach to defining Filament 3 form and table schemas. This pattern allows for better code organization, reusability, and maintainability by separating schema definitions from resource classes. The current approach involves creating form and table schema classes directly in each panel, implementing them from BaseSchematic classes without using common schematic classes.
 
 ## Architecture
 
 ### Directory Structure
 
 ```
-Modules/Units/{Unit}/
-├── Common/
-│   └── Filament/
-│       └── Schemtics/
-│           └── {Context}/
-│               ├── CommonTableSchematic.php
-│               └── CommonFormSchematic.php
+Modules/Units/{UnitName}/
 └── {Panel}/
     └── Filament/
-        └── {Context}/
-            └── Schematic/
-                ├── {Unit}{Context}TableSchema.php
-                └── {Unit}{Context}FormSchema.php
+        └── Schematic/
+            ├── {UnitName}{Context}TableSchema.php
+            └── {UnitName}{Context}FormSchema.php
 
 ```
 
@@ -34,35 +27,31 @@ The pattern is built on two base classes:
 
 ## Implementation Pattern
 
-### 1. Common Schematic Classes
+### 1. Panel-Specific Schematic Classes
 
-Create base schematic classes in the `Common` directory that define the core schema structure:
+Create panel-specific schematic classes directly in each panel directory that define the schema structure:
 
 ```php
 <?php
-namespace Units\FinanceRequest\Common\Filament\Schemtics\Initial;
+namespace Units\FinanceRequest\Admin\Filament\Initial\Schematic;
 
 use Modules\Basic\BaseKit\Filament\Schematics\BaseTableSchematic;
 use Filament\Tables\Table;
 
-class CommonTableSchematic extends BaseTableSchematic
+class FinanceRequestInitTableSchema extends BaseTableSchematic
 {
     function tableSchema(Table $table): Table
     {
         return $table
             ->columns([
-                $this->textColumn('code'),
-                $this->moneyColumn('amount'),
-                $this->badgeColumn('status'),
+                $this->textColumn('code')
+                ->visible(),
+                $this->moneyColumn('amount')
+                ->visible(),
+                $this->badgeColumn('status')
+                ->visible(),
                 // ... other columns
             ]);
-    }
-
-    public function getActions(): array
-    {
-        return [
-            // Define common actions
-        ];
     }
 
     public function attributeLabels(): array
@@ -76,40 +65,33 @@ class CommonTableSchematic extends BaseTableSchematic
 }
 ```
 
-### 2. Panel-Specific Schematic Classes
+### 2. Form Schematic Classes
 
-Create panel-specific schematics that extend the common classes:
+Create panel-specific form schematics that implement directly from BaseFormSchematic:
 
 ```php
 <?php
 namespace Units\FinanceRequest\Manage\Filament\Initial\Schematic;
 
-use Units\FinanceRequest\Common\Filament\Schemtics\Initial\CommonTableSchematic;
+use Modules\Basic\BaseKit\Filament\Schematics\BaseFormSchematic;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Form;
 
-class FinanceRequestInitTableSchema extends CommonTableSchematic
+class FinanceRequestInitFormSchema extends BaseFormSchematic
 {
-    function tableSchema(Table $table): Table
-    {
-        return $table
-            ->query(
-                FinanceRequestModel::query()
-                    ->whereIn('status', [
-                        FinanceRequestStatusesEnum::MY_INIT_SENT,
-                        FinanceRequestStatusesEnum::MANAGE_INIT_APPROVED,
-                        // ... other statuses
-                    ])
-            )
-            ->columns([
-                // Override or extend columns as needed
-            ]);
-    }
-
-    public function getActions(): array
+    function commonFormSchema(): array
     {
         return [
-            // Panel-specific actions
+            Grid::make(4)->schema([
+                $this->moneyInput('amount')
+                ->visible(),
+                $this->textInput('repayment_period')
+                ->visible(),
+                // ... other fields
+            ])
         ];
     }
+
 }
 ```
 
@@ -155,32 +137,160 @@ class EditFinanceRequest extends EditRecord
 
 ## Key Features
 
-### 1. Schema Reusability
+### 1. Direct Implementation from Base Classes
 
-Common schematics can be reused across different panels with specific customizations:
+Each panel implements schematics directly from BaseSchematic classes, allowing for panel-specific customization:
 
 ```php
-// Common form schema
-class CommonFormSchematic extends BaseFormSchematic
+// Admin panel form schema
+class AdminFinanceRequestFormSchema extends BaseFormSchematic
 {
     function commonFormSchema(): array
     {
         return [
             Grid::make(4)->schema([
-                $this->moneyInput('amount'),
-                $this->textInput('repayment_period'),
-                // ... other fields
+                $this->textInput('amount')
+                ->visible(),
+                $this->textInput('repayment_period')
+                ->visible(),
+                // ... admin-specific fields
             ])
+        ];
+    }
+    
+    public function attributeLabels(): array
+    {
+        return [
+            'amount' => 'مبلغ کل',
+            'repayment_period' => 'مدت بازپرداخت',
         ];
     }
 }
 
-// Panel-specific form schema
-class MyFormSchematic extends CommonFormSchematic
+// Manage panel form schema
+class ManageFinanceRequestFormSchema extends BaseFormSchematic
 {
-    // Inherits all common functionality
-    // Can override specific methods if needed
+    function commonFormSchema(): array
+    {
+        return [
+            Grid::make(4)->schema([
+                $this->textInput('amount')
+                ->visible(),
+                $this->textInput('repayment_period')
+                ->visible(),
+                // ... manage-specific fields
+            ])
+        ];
+    }
+    
+    public function attributeLabels(): array
+    {
+        return [
+            'amount' => 'مبلغ تایید شده',
+            'repayment_period' => 'مدت زمان تایید شده',
+        ];
+    }
 }
+
+// My panel form schema
+class MyFinanceRequestFormSchema extends BaseFormSchematic
+{
+    function commonFormSchema(): array
+    {
+        return [
+            Grid::make(4)->schema([
+                $this->textInput('amount')
+                ->visible(),
+                $this->textInput('repayment_period')
+                ->visible(),
+                // ... my-specific fields
+            ])
+        ];
+    }
+    
+    public function attributeLabels(): array
+    {
+        return [
+            'amount' => 'مبلغ درخواستی',
+            'repayment_period' => 'مدت زمان درخواستی',
+        ];
+    }
+}
+```
+
+### 2. Base Class Field Methods
+
+The schematic classes provide specialized field methods through trait concerns that should be used instead of direct Filament static methods:
+
+**Form Schematic Fields** (available in BaseFormSchematic via InteractWithForm trait):
+- `$this->textInput($attribute)` - Basic text input
+- `$this->amountInput($attribute)` - Amount input with Rial conversion
+- `$this->amountRialInput($attribute)` - Amount input specifically for Rial amounts with conversion
+- `$this->percentageInput($attribute)` - Percentage input with % suffix
+- `$this->selectInput($attribute)` - Select dropdown
+- `$this->radioInput($attribute)` - Radio buttons
+- `$this->checkBoxInput($attribute)` - Checkbox
+- `$this->checkBoxListInput($attribute)` - Checkbox list component
+- `$this->toggleInput($attribute)` - Toggle switch
+- `$this->toggleButtonsInput($attribute)` - Toggle buttons component
+- `$this->textAreaInput($attribute)` - Text area
+- `$this->richEditorInput($attribute)` - Rich text editor
+- `$this->tinyEditor($attribute)` - TinyMCE editor component
+- `$this->datePickerInput($attribute)` - Date picker
+- `$this->dateTimePickerInput($attribute)` - DateTime picker
+- `$this->timePickerInput($attribute)` - Time picker component
+- `$this->fileUploadInput($attribute, $directory)` - File upload
+- `$this->tagsInput($attribute)` - Tags input
+- `$this->colorPickerInput($attribute)` - Color picker
+- `$this->repeater($attribute)` - Repeater field
+- `$this->nationalCodeInput($attribute)` - Iranian national code validation
+- `$this->paymentCardTextInput($attribute)` - Bank card validation
+- `$this->shebaTextInput($attribute)` - IBAN/SHEBA validation
+- `$this->normalPhoneNumberInput($attribute)` - Iranian phone number validation
+- `$this->internationalPhoneNumberInput($attribute)` - International phone validation
+- `$this->ratingInput($attribute)` - Rating component
+- `$this->month_input($attribute)` - Month input with suffix
+- `$this->textNumberInput($attribute)` - Numeric quantity input
+- `$this->placeHolder($attribute)` - Placeholder component for displaying static text
+- `$this->viewField($attribute)` - View field component for displaying custom content
+- `$this->actionField($attribute)` - Action button
+- `$this->statusSelectField($attribute, $statuses)` - Status selection dropdown with predefined options
+- `$this->mountInput($attribute)` - Mount input with month options (1-36)
+- `$this->postalCode($attribute)` - Postal code input with validation
+- `$this->saveAction($attributes)` - Save action that validates and saves only specified attributes
+- `$this->confirmCodeAction($attribute, $action, $form_components)` - Confirmation action with verification code modal
+- `$this->rejectAction($attribute)` - Reject action with verification code and reason input
+- `$this->approveAction($attribute)` - Approve action with verification code modal
+- And many more specialized input methods...
+
+**Table Schematic Fields** (available in BaseTableSchematic via InteractWithTable trait):
+- `$this->textColumn($attribute)` - Text column
+- `$this->moneyColumn($attribute)` - Money column
+- `$this->badgeColumn($attribute)` - Badge column
+- `$this->booleanColumn($attribute)` - Boolean column
+- `$this->colorColumn($attribute)` - Color column
+- `$this->iconColumn($attribute)` - Icon column
+- `$this->imageColumn($attribute)` - Image column
+- `$this->selectColumn($attribute)` - Select column
+- `$this->tagsColumn($attribute)` - Tags column
+- `$this->toggleColumns($attribute)` - Toggle column
+- `$this->viewColumn($attribute)` - View column
+- `$this->mobileColumn($attribute)` - Mobile number column
+- `$this->dateColumn($attribute)` - Date column
+- `$this->dateTimeColumn($attribute)` - DateTime column
+- `$this->ratingColumn($attribute)` - Rating column
+
+**InfoList Schematic Fields** (available in BaseViewSchematic via InteractWithInfoList trait):
+- `$this->textInput($attribute)` - Text entry for InfoList
+- `$this->amountInput($attribute)` - Amount display with Rial conversion
+- `$this->selectInput($attribute)` - Select display
+- `$this->checkBoxInput($attribute)` - Checkbox display
+- `$this->toggleInput($attribute)` - Toggle display
+- `$this->datePickerInput($attribute)` - Date display
+- `$this->fileUploadInput($attribute)` - Image display
+- And other field methods adapted for InfoList display...
+
+**Note**: Grid, Section, Fieldset, and Split components should be used directly from Filament as they don't have parent method implementations in the base classes.
 ```
 
 ### 2. Dynamic Schema Manipulation
@@ -305,15 +415,16 @@ public function disableAttributes(): array
 
 ### 1. Naming Conventions
 
-- **Common schematics**: `Common{Type}Schematic.php`
-- **Panel schematics**: `{Unit}{Context}{Type}Schema.php`
+- **Admin panel schematics**: `{Unit}{Context}TableSchema.php` / `{Unit}{Context}FormSchema.php`
+- **Manage panel schematics**: `{Unit}{Context}TableSchema.php` / `{Unit}{Context}FormSchema.php`
+- **My panel schematics**: `{Unit}{Context}TableSchema.php` / `{Unit}{Context}FormSchema.php`
 - **Namespaces**: Follow the directory structure exactly
 
 ### 2. Schema Organization
 
-- Keep common schematics in `Common/Filament/Schemtics/{Context}/`
-- Keep panel-specific schematics in `{Panel}/Filament/{Context}/Schematic/`
-- Use descriptive context names (e.g., `Initial`, `Operational`, `Managerial`)
+- Keep panel-specific schematics in `{Panel}/Filament/Schematic/`
+- Use descriptive context names in the class names (e.g., `Initial`, `Operational`, `Managerial`)
+- Each panel should have its own implementation directly extending BaseSchematic classes
 
 ### 3. Method Implementation
 
@@ -362,7 +473,7 @@ function tableSchema(Table $table): Table
 
 ### 1. Schema Composition
 
-Combine multiple schematics:
+Combine multiple schematics within the same panel:
 
 ```php
 function commonFormSchema(): array
@@ -370,11 +481,11 @@ function commonFormSchema(): array
     return [
         Card::make()->schema([
             // Main form fields
-            ...CommonFinancingModeFormSchematic::makeSchema()
+            ...AdminFinancingModeFormSchematic::makeSchema()
                 ->invisibleAllAttributes()
                 ->visibleAttribute('annual_loan_interest')
                 ->visibleAttribute('loan_recipient')
-                ->returnMappedSchema('g.3+g.3+g.3+g.1')
+                ->returnMappedSchema('g.3+g.1')
         ])
     ];
 }
