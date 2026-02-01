@@ -10,12 +10,12 @@ use Units\Users\Admin\Admin\Services\UserService;
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
 
-#[AsCommand(name: 'make:filament-user')]
-class MakeUserCommand extends Command
+#[AsCommand(name: 'make:filament-user-admin')]
+class MakeAdminUserCommand extends Command
 {
-    protected $description = 'Create a new Filament user - customized';
+    protected $description = 'Create a new Filament Admin user - customized';
 
-    protected $signature = 'make:filament-user
+    protected $signature = 'make:filament-user-admin
                             {--username= : The user name of the user}
                             {--mobile= : A valid and unique mobile number}
                             {--password= : The password for the user (min. 8 characters)}';
