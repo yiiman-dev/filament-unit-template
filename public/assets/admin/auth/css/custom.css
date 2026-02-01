@@ -1,0 +1,23 @@
+/*
+ * Copyright (C) Saman beheshtian, Inc - All Rights Reserved
+ * 2025.
+ *
+ * Author        Saman beheshtian
+ * Position      Developer
+ * Email         amintado@gmail.com
+ * Phone         +989353466620
+ * Date          4/6/25, 1:28AM
+ */
+
+.border-card{
+    border-color: #ECECEE;
+    border-width: 1px;
+}
+.card{
+    padding: 48px;
+    border-radius: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+}

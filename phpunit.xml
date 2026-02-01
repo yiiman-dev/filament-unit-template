@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+            <directory>Modules/*/tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+            <directory>Modules/*/tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Flow">
+            <directory>Modules/FlowTest</directory>
+        </testsuite>
+
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+            <directory>Modules</directory>
+        </include>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+<!--        <env name="APP_MAINTENANCE_DRIVER" value="file"/>-->
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_STORE" value="array"/>
+        <env name="DB_CONNECTION" value="test_laravel"/>
+<!--        <env name="DB_DATABASE" value=":memory:"/>-->
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+
+        <!-- Test Database Connections -->
+        <env name="LARAVEL_DB_CONNECTION" value="test_laravel"/>
+        <env name="MY_DB_CONNECTION" value="test_my"/>
+        <env name="ADMIN_DB_CONNECTION" value="test_admin"/>
+        <env name="MANAGE_DB_CONNECTION" value="test_manage"/>
+
+        <!-- Test MongoDB Connections -->
+        <env name="MONGO_CONNECTION" value="test_mongo"/>
+        <env name="ADMIN_MONGO_CONNECTION" value="test_admin_mongo"/>
+        <env name="MY_MONGO_CONNECTION" value="test_my_mongo"/>
+        <env name="MANAGER_MONGO_CONNECTION" value="test_manage_mongo"/>
+
+        <!-- Test API Connections -->
+        <env name="MY_BASE_MODEL_API" value="http://127.0.0.1:8200/api/test/my"/>
+        <env name="MANAGE_BASE_MODEL_API" value="http://127.0.0.1:8100/api/test/manage"/>
+
+        <!-- Test Redis Connection -->
+        <env name="REDIS_CONNECTION" value="test"/>
+    </php>
+</phpunit>

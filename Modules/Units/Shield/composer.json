@@ -1,0 +1,24 @@
+{
+    "name": "units/Shield",
+    "description": "description",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "apple",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+        "bezhansalleh/filament-shield": "@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "Package",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
+}

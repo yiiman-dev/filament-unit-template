@@ -1,0 +1,24 @@
+{
+    "name": "units/Knowledge",
+    "description": "knowledge documentation dor resources and pages",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "apple",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+        "guava/filament-knowledge-base": "@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "Package",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,220 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Vazir', Tahoma, Arial, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    letter-spacing: 0.025em;
+    color: #333;
+    direction: rtl;
+    text-align: right;
+}
+
+h1 { font-size: 3.5rem; font-weight: 700; }
+h2 { font-size: 2.5rem; font-weight: 700; }
+h3 { font-size: 1.5rem; font-weight: 500; }
+h5 { font-size: 1.25rem; font-weight: 500; }
+p { font-size: 1.1rem; }
+
+/* Colors (Updated with provided priorities) */
+:root {
+    --primary-dark: #831F82; /* High priority purple dark */
+    --primary-light: #A877B2; /* High priority purple light */
+    --secondary-red: #A5181E; /* Low priority red */
+    --secondary-gray: #949597; /* Low priority gray */
+    --white: #FFFFFF;
+    --light-gray: #F3F4F6;
+    --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --bg-gray: #E5E7EB;
+}
+
+/* Hero Slider */
+.hero-slider .carousel-item img {
+    height: 100vh;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background: rgba(131, 31, 130, 0.5); /* Updated to primary-dark */
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.btn-success {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-0.125rem);
+    background-color: var(--secondary-red); /* Changed to #A5181E */
+    border-color: var(--secondary-red); /* Changed to #A5181E */
+    box-shadow: 0 0.25rem 0.5rem rgba(165, 24, 30, 0.3); /* Updated shadow to match #A5181E */
+}
+
+.btn-outline-purple {
+    color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-purple:hover {
+    background-color: var(--primary-dark);
+    color: var(--white);
+}
+
+.btn-outline-red {
+    color: var(--secondary-red);
+    border-color: var(--secondary-red);
+}
+
+.btn-outline-red:hover {
+    background-color: var(--secondary-red);
+    color: var(--white);
+}
+
+/* Cards and Shadows */
+.card {
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Added background-color transition */
+}
+
+.card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 0.5rem 1rem rgba(131, 31, 130, 0.15) !important; /* Updated to primary-dark */
+    background-color: rgba(168, 119, 178, 0.2); /* Transparent #A877B2 for better readability */
+}
+
+.stars i {
+    font-size: 1.25rem;
+}
+
+/* Form RTL Adjustments */
+.form-label {
+    text-align: right;
+}
+
+.form-control {
+    text-align: right;
+}
+
+/* Stats */
+.stats {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Parallax Background */
+.parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.parallax-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(131, 31, 130, 0.5); /* Updated to primary-dark */
+    z-index: 1;
+}
+
+.parallax-bg > .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Services and Testimonials Parallax */
+#services.parallax-bg, #testimonials.parallax-bg {
+    background-image: url('Business-Success.png');
+}
+
+/* Gray Background for Stats */
+.bg-gray {
+    background-color: var(--bg-gray);
+}
+
+/* Footer Parallax */
+#contact.parallax-bg {
+    background-image: url('contact-us-header.png');
+}
+
+/* Footer */
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-light) !important; /* Updated to primary-light */
+}
+
+/* Accessibility: High Contrast */
+@media (prefers-contrast: high) {
+    .text-white { color: #000 !important; background: #fff; }
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    .carousel-caption { padding: 1rem; }
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* No Hyphenation for Persian */
+body {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+}
+
+#terms {
+  background-color: var(--light-gray);
+  color: #333;
+}
+#terms h5 {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+#terms p {
+  line-height: 1.8;
+}
+
+
+/* برای نمایش صحیح اعداد در صفحه RTL */
+.phone-number {
+  direction: ltr;          /* ترتیب ارقام چپ→راست */
+  unicode-bidi: isolate;   /* جداسازی جهت‌نگاری از متن اطراف */
+  display: inline-block;   /* جلوگیری از رفتار عجیب هنگام wrap */
+  text-align: left;        /* تراز درون span به چپ */
+  font-weight: 600;        /* دلخواه — بهتر دیده شود */
+}
+.phone-number a,
+.phone-number a:visited {
+  color: #fff !important;   /* همیشه سفید */
+  text-decoration: none;
+}
+
+.phone-number a:hover,
+.phone-number a:focus {
+  color: #A5181E !important;  /* سبز روی hover (هماهنگ با دکمه‌ها) */
+  text-decoration: underline;
+}

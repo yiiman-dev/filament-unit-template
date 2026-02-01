@@ -1,0 +1,54 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.20.1",
+        "@tailwindcss/postcss": "^4.1.16",
+        "@tailwindcss/vite": "^4.0.7",
+        "autoprefixer": "^10.4.20",
+        "axios": "^1.7.4",
+        "concurrently": "^9.0.1",
+        "express": "^5.1.0",
+        "laravel-vite-plugin": "^1.0",
+        "pg": "^8.16.3",
+        "puppeteer": "^24.29.1",
+        "tailwindcss": "~4.1.11",
+        "tailwindcss-rtl": "^0.9.0",
+        "vite": "^6.0"
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "4.9.5",
+        "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
+        "lightningcss-linux-x64-gnu": "^1.29.1"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.10",
+        "@tailwindcss/typography": "^0.5.16",
+        "laravel-echo": "^1.19.0",
+        "pusher-js": "^8.4.0",
+        "sass-embedded": "^1.93.3"
+    },
+    "name": "arian-scf",
+    "version": "1.0.0",
+    "description": "This is a Laravel Filament project with a modular architecture.",
+    "main": "postcss.config.js",
+    "directories": {
+        "doc": "docs",
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/binesh-corp/Arian-SCF.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/binesh-corp/Arian-SCF/issues"
+    },
+    "homepage": "https://github.com/binesh-corp/Arian-SCF#readme"
+}

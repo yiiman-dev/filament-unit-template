@@ -1,0 +1,45 @@
+<?php
+/*
+ * Copyright (C) Saman beheshtian, Inc - All Rights Reserved
+ * 2025.
+ *
+ * Author        Saman beheshtian
+ * Position      Developer
+ * Email         amintado@gmail.com
+ * Phone         +989353466620
+ * Date          4/28/25, 9:07 AM
+ */
+
+namespace Units\ActLog\Manage;
+
+use Filament\Contracts\Plugin;
+use Filament\Panel;
+use Units\ActLog\Manage\Filament\Widgets\ProfileUserLogsTableWidget;
+
+class ActLogManagePlugin implements Plugin
+{
+
+    public static function make()
+    {
+        return new self();
+    }
+    public function getId(): string
+    {
+        return 'filament-act-log-admin';
+    }
+
+    public function register(Panel $panel): void
+    {
+        $panel
+            ->widgets(
+                [
+                    ProfileUserLogsTableWidget::class,
+                ]
+            );
+    }
+
+    public function boot(Panel $panel): void
+    {
+        // TODO: Implement boot() method.
+    }
+}

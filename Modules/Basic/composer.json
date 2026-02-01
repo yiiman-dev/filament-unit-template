@@ -1,0 +1,39 @@
+{
+    "name": "nwidart/basic",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12.0",
+        "kavenegar/php": "^1.2",
+        "mckenziearts/laravel-notify": "^2.7",
+        "rawilk/filament-password-input": "v2.0.3",
+        "yiiman/functions": "v0.0.2",
+        "stechstudio/filament-impersonate": "3.6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Basic\\": "app/",
+            "Modules\\Basic\\Database\\Factories\\": "database/factories/",
+            "Modules\\Basic\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Basic\\Tests\\": "tests/"
+        }
+    }
+}

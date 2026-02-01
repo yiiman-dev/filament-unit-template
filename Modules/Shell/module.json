@@ -1,0 +1,11 @@
+{
+    "name": "Shell",
+    "alias": "shell",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Shell\\Providers\\ShellServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,21 @@
+{
+    "name": "apple/chat",
+    "type": "library",
+    "require": {
+        "laravolt/avatar": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "yiiman-dev",
+            "email": "amintado@gmail.com"
+        }
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisan vendor:publish --provider=\"Laravolt\\Avatar\\ServiceProvider\""
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --provider=\"Laravolt\\Avatar\\ServiceProvider\""
+        ]
+    }
+}

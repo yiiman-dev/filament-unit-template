@@ -1,0 +1,45 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "units/approval",
+    "type": "project",
+    "description": "The official Laravel starter kit for Livewire.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
+
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "require": {
+        "eightynine/filament-approvals": "@dev"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "Package",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "Package2",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

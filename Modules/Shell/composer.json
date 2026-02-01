@@ -1,0 +1,33 @@
+{
+    "name": "yiiman/filament-shell",
+    "description": "",
+    "authors": [
+        {
+            "name": "YiiMan",
+            "email": "info@yiiman.ir"
+        }
+    ],
+    "require": {
+        "nodilabs/nodishell": "^0.0.2"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Shell\\": "app/",
+            "Modules\\Shell\\Database\\Factories\\": "database/factories/",
+            "Modules\\Shell\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Shell\\Tests\\": "tests/"
+        }
+    }
+}

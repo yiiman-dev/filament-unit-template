@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+use Illuminate\Foundation\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+//if (function_exists('xdebug_disable')) {
+//    xdebug_disable();  // Prevents Xdebug from starting[1]
+//}
+//ini_set('xdebug.mode','off');
+//ini_set('xdebug.discover_client_host','off');
+//ini_set('xdebug.remote_enable','off');
+//ini_set('xdebug.remote_autostart','off');
+
+define('LARAVEL_START', microtime(true));
+
+// Register the Composer autoloader...
+require __DIR__.'/vendor/autoload.php';
+
+// Bootstrap Laravel and handle the command...
+/** @var Application $app */
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+$status = $app->handleCommand(new ArgvInput);
+
+exit($status);

@@ -1,0 +1,14 @@
+{
+    "name": "Settings",
+    "alias": "settings",
+    "description": "Settings module for managing application configurations",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Units\\Settings\\Core\\Provider\\FilamentSettingsServiceProvider",
+        "Units\\Settings\\Admin\\AdminSettingsPlugin",
+        "Units\\Settings\\Manage\\ManageSettingsPlugin"
+    ],
+    "files": [],
+    "seeder": "Units\\Settings\\database\\seeders\\SettingsDatabaseSeeder"
+}

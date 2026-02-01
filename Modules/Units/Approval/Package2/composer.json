@@ -1,0 +1,59 @@
+{
+    "name": "ringlesoft/laravel-process-approval",
+    "description": "A package to handle process approval flow in a laravel application.",
+    "type": "laravel-package",
+    "homepage": "https://ringlesoft.com/packages/laravel-process-approval",
+    "license": "MIT",
+    "keywords": [
+        "ringlesoft",
+        "approval",
+        "approve",
+        "flow",
+        "procedure",
+        "laravel"
+    ],
+    "autoload": {
+        "psr-4": {
+            "RingleSoft\\LaravelProcessApproval\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David Ringle",
+            "email": "ringunger@gmail.com",
+            "homepage": "https://ringlesoft.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "illuminate/auth": "^10|^11|^12",
+        "illuminate/broadcasting": "^10|^11|^12",
+        "illuminate/database": "^10|^11|^12",
+        "illuminate/routing": "^10|^11|^12"
+    }
+    ,
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RingleSoft\\LaravelProcessApproval\\LaravelProcessApprovalServiceProvider"
+            ],
+            "aliases": {
+                "ProcessApproval": "RingleSoft\\LaravelProcessApproval\\Facade"
+            },
+            "dont-discover": [
+            ]
+        }
+    },
+    "branches": {
+        "stable": {
+            "name": "master"
+        }
+    },
+    "version": "1.1.2",
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
