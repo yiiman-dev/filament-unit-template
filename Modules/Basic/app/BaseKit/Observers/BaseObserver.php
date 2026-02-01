@@ -18,27 +18,27 @@ class BaseObserver
                 $auth_phone = filament()?->getCurrentPanel()?->getId() . '_' . auth()?->user()?->phone_number;
             }
         }
-//        if ($model->hasAttribute('updated_by')){
-        $model->updated_by = $auth_phone;
-//        }
-//        if ($model->hasAttribute('updated_at')){
-        $model->updated_at = date('Y-m-d H:i:s');
-//        }
-//        if ($model->hasAttribute('created_by')){
-        if (!empty($model->created_by)) {
-            $model->created_by = $auth_phone;
+        if ($model->hasAttribute('updated_by')) {
+            $model->updated_by = $auth_phone;
         }
-//        }
-//        if ($model->hasAttribute('created_at')){
-        $model->created_at = date('Y-m-d H:i:s');
-//        }
+        if ($model->hasAttribute('updated_at')) {
+            $model->updated_at = date('Y-m-d H:i:s');
+        }
+        if ($model->hasAttribute('created_by')) {
+            if (!empty($model->created_by)) {
+                $model->created_by = $auth_phone;
+            }
+        }
+        if ($model->hasAttribute('created_at')) {
+            $model->created_at = date('Y-m-d H:i:s');
+        }
 
-//        if ($model->hasAttribute('id')) {
-        if ($model->hasCast('id') && $model->getCasts()['id'] == 'string') {
-            $model->setIncrementing(false);
-            $model->id = Str::uuid()->toString();
+        if ($model->hasAttribute('id')) {
+            if ($model->hasCast('id') && ($model->getCasts()['id'] == 'string')||$model->getCasts()['id'] == 'uuid') {
+                $model->setIncrementing(false);
+                $model->id = Str::uuid()->toString();
+            }
         }
-//        }
     }
 
     public static function updating($model)
@@ -55,14 +55,14 @@ class BaseObserver
                 $auth_phone = filament()?->getCurrentPanel()?->getId() . '_' . auth()?->user()?->phone_number;
             }
         }
-//        if ($model->hasAttribute('updated_by')){
+        if ($model->hasAttribute('updated_by')){
         if (empty($model->updated_by)) {
             $model->updated_by = $auth_phone;
         }
-//        }
-//        if ($model->hasAttribute('updated_at')){
+        }
+        if ($model->hasAttribute('updated_at')){
         $model->updated_at = date('Y-m-d H:i:s');
-//        }
+        }
     }
 
 
@@ -84,12 +84,12 @@ class BaseObserver
                 $auth_phone = filament()?->getCurrentPanel()?->getId() . '_' . auth()?->user()?->phone_number;
             }
         }
-//        if ($model->hasAttribute('deleted_at')){
+        if ($model->hasAttribute('deleted_at')){
         $model->deleted_at = date('Y-m-d H:i:s');
-//        }
-//        if ($model->hasAttribute('deleted_by')){
+        }
+        if ($model->hasAttribute('deleted_by')){
         $model->deleted_by = $auth_phone;
-//        }
+        }
     }
 
     /**

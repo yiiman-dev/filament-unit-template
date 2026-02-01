@@ -18,4 +18,15 @@ class TextColumn extends BaseTextColumn
 
         return $component;
     }
+
+    public function rtl()
+    {
+        $this->extraAttributes(['tabindex' => 1, 'style' => 'text-align:right;direction:rtl !important']);
+        return $this;
+    }
+    public function ltr():self
+    {
+        $this->extraAttributes(['tabindex' => 1, 'style' => 'text-align:left;direction:ltr  !important']);
+        return $this;
+    }
 }

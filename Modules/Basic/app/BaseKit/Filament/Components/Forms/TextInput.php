@@ -18,7 +18,7 @@ class TextInput extends BaseTextInput
 
     public function rtl():self
     {
-        $this->extraAlpineAttributes(['tabindex' => 1, 'style' => 'text-align:right;direction:rtl']);
+        $this->extraAlpineAttributes(['tabindex' => 1, 'style' => 'text-align:right;direction:rtl !important']);
         return $this;
     }
 }

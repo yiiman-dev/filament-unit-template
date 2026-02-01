@@ -21,7 +21,8 @@ use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Columns\TextColumn;
+
+use Modules\Basic\BaseKit\Filament\Components\Table\TextColumn;
 use Modules\Basic\BaseKit\Filament\Form\Components\MoneyColumn;
 use Modules\Basic\Helpers\Helper;
 use Mokhosh\FilamentRating\Columns\RatingColumn;
